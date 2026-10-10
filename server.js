@@ -72,6 +72,9 @@ app.use((req, res) => {
   if (req.path.startsWith("/api/")) {
     return res.status(404).json({ error: "API endpoint not found", path: req.path });
   }
+  if (path.extname(req.path)) {
+    return res.status(404).send("File not found: " + req.path);
+  }
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
