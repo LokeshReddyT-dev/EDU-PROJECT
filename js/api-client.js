@@ -2,7 +2,7 @@
 // Handles all communication with the /api backend when online.
 // Queues requests offline and replays them when connectivity is restored.
 
-const API_BASE = "/api";
+const API_BASE = (typeof window !== "undefined" && (window.EDUPOCKET_API_BASE || localStorage.getItem("edupocket_api_url"))) || "/api";
 
 class EduApiClient {
   constructor() {
