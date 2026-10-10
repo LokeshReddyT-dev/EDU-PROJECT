@@ -1,0 +1,18 @@
+{
+  "name": "edupocket",
+  "version": "1.0.0",
+  "description": "EduPocket – The Internet-Free AI Classroom",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080"
+  },
+  "keywords": [
+    "edupocket",
+    "offline-first",
+    "pwa",
+    "education",
+    "ai"
+  ],
+  "author": "Lokesh Reddy",
+  "license": "MIT"
+}
