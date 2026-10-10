@@ -17,3 +17,26 @@ desktop.ini
 # Temporary files
 scratch/
 tmp/
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables (NEVER commit secrets)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Vercel
+.vercel
+
+# Build output
+dist/
+.next/
+out/
+
+# Package lock (optional — remove if you want to commit it)
+# package-lock.json

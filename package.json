@@ -3,16 +3,31 @@
   "version": "1.0.0",
   "description": "EduPocket – The Internet-Free AI Classroom",
   "main": "index.html",
+  "type": "module",
   "scripts": {
-    "start": "python -m http.server 8080"
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "deploy": "vercel --prod",
+    "serve": "npx serve . -p 8080"
+  },
+  "devDependencies": {
+    "vercel": "^41.0.0"
   },
   "keywords": [
     "edupocket",
     "offline-first",
     "pwa",
     "education",
-    "ai"
+    "ai",
+    "rural-education",
+    "offline-learning"
   ],
   "author": "Lokesh Reddy",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.39.0"
+  }
 }
