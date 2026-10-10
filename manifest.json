@@ -1,0 +1,22 @@
+{
+  "name": "EduPocket – The Internet-Free AI Classroom",
+  "short_name": "EduPocket",
+  "description": "Offline-first AI classroom providing verified curriculum, local search, retrieval-first AI, quizzes, and smart sync.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

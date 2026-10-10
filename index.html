@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduPocket – The Internet-Free AI Classroom</title>
+  <meta name="description" content="EduPocket is an offline-first AI classroom providing verified local curriculum, offline search, retrieval-first AI assistance, quizzes, and smart sync for low-connectivity rural education.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="icon" type="image/png" href="assets/icons/icon-512.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- Top Sticky Connection Status & Simulator Banner -->
+  <aside class="offline-global-banner mode-offline" id="global-connection-banner" aria-label="Connection Status">
+    <div class="banner-content">
+      <span class="banner-badge" id="banner-status-badge">🔴 Offline Mode</span>
+      <span id="banner-message-text">You're offline. Your learning progress will be saved and synchronized later.</span>
+    </div>
+    <div class="banner-controls">
+      <div class="sim-toggle-pill" title="Toggle Connection Simulator for Demonstration">
+        <button type="button" id="sim-btn-online">🟢 Online</button>
+        <button type="button" id="sim-btn-offline" class="active-offline">🔴 Offline</button>
+      </div>
+      <button type="button" class="pass-tablet-btn" id="btn-quick-pass-tablet">🔄 Pass Tablet</button>
+    </div>
+  </aside>
+
+  <!-- Main Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="#landing" class="brand-section" id="brand-home-link" aria-label="EduPocket Home">
+        <img src="assets/images/logo.jpg" alt="EduPocket Logo" class="brand-logo-img">
+        <div class="brand-text-block">
+          <span class="brand-title">EduPocket</span>
+          <span class="brand-sub">Offline AI Classroom</span>
+        </div>
+      </a>
+
+      <!-- Navigation Tabs -->
+      <nav class="main-nav" aria-label="Main Navigation">
+        <button type="button" class="nav-link-btn" data-view="landing" id="nav-btn-home">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label" data-i18n="navHome">Home</span>
+        </button>
+        <button type="button" class="nav-link-btn" data-view="dashboard" id="nav-btn-learn">
+          <span class="nav-icon">📚</span>
+          <span class="nav-label" data-i18n="navLearn">Learn</span>
+        </button>
+        <button type="button" class="nav-link-btn" data-view="packs" id="nav-btn-packs">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label" data-i18n="curriculumPacks">Packs</span>
+        </button>
+        <button type="button" class="nav-link-btn" data-view="search" id="nav-btn-search">
+          <span class="nav-icon">🔎</span>
+          <span class="nav-label" data-i18n="navSearch">Search</span>
+        </button>
+        <button type="button" class="nav-link-btn" data-view="chat" id="nav-btn-chat">
+          <span class="nav-icon">🤖</span>
+          <span class="nav-label" data-i18n="navAskAI">Ask EduPocket</span>
+        </button>
+        <button type="button" class="nav-link-btn" data-view="quiz" id="nav-btn-quiz">
+          <span class="nav-icon">📝</span>
+          <span class="nav-label" data-i18n="navQuizzes">Quizzes</span>
+        </button>
+        <button type="button" class="nav-link-btn" data-view="teacher" id="nav-btn-teacher">
+          <span class="nav-icon">👩‍🏫</span>
+          <span class="nav-label" data-i18n="navTeacher">Teacher Mode</span>
+        </button>
+        <button type="button" class="nav-link-btn" data-view="parent" id="nav-btn-parent">
+          <span class="nav-icon">👨‍👩‍👦</span>
+          <span class="nav-label" data-i18n="navParent">Parent View</span>
+        </button>
+      </nav>
+
+      <!-- Header Utilities -->
+      <div class="header-actions">
+        <!-- Language Selector -->
+        <div class="lang-select-wrapper">
+          <select id="global-lang-select" class="lang-select" aria-label="Select Language">
+            <option value="en">English</option>
+            <option value="te" selected>తెలుగు (Telugu)</option>
+            <option value="hi">हिंदी (Hindi)</option>
+          </select>
+        </div>
+
+        <!-- Student Profile Pill -->
+        <button type="button" class="student-pill-btn" id="btn-open-profiles" title="Who's Learning Today? Click to switch student">
+          <span class="student-avatar" id="header-student-avatar">👦</span>
+          <span class="student-name-text" id="header-student-name">Ravi</span>
+        </button>
+
+        <!-- Sync Queue Drawer Button -->
+        <button type="button" class="sync-badge-btn" id="btn-open-sync" title="View Sync Queue">
+          <span class="sync-dot-badge" id="header-sync-dot"></span>
+          <span id="header-sync-text">3 Sync</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main class="app-container" id="main-view-container">
+    <!-- Dynamic views will render here (landing, dashboard, packs, lesson, chat, search, quiz, teacher, parent) -->
+  </main>
+
+  <!-- Profiles Modal ("Who's Learning Today?") -->
+  <div class="modal-overlay" id="profiles-modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h3 style="font-size:1.5rem; font-weight:800; color:var(--primary-deep);" data-i18n="whoIsLearning">Who's Learning Today?</h3>
+          <p style="font-size:0.9rem; color:var(--text-muted);" data-i18n="selectProfile">Select your profile to load your personalized offline lessons, quizzes, and streak.</p>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline" id="btn-close-profiles">✕</button>
+      </div>
+
+      <div class="profiles-grid" id="modal-profiles-list">
+        <!-- Student cards injected via JS -->
+      </div>
+
+      <!-- Add Student Toggle Form -->
+      <div id="add-student-container" style="border-top:1px solid var(--border); padding-top:16px;">
+        <button type="button" class="btn btn-outline" id="btn-toggle-add-student" style="width:100%;">
+          + <span data-i18n="addStudent">Add Student</span>
+        </button>
+        <form id="add-student-form" style="display:none; flex-direction:column; gap:12px; margin-top:14px;">
+          <input type="text" id="new-student-name" placeholder="Student Full Name (e.g. Priya Reddy)" required class="chat-input" style="font-size:0.9rem;">
+          <div style="display:flex; gap:10px;">
+            <select id="new-student-class" class="lang-select" style="flex:1;">
+              <option value="Class 8">Class 8</option>
+              <option value="Class 7">Class 7</option>
+              <option value="Class 6">Class 6</option>
+              <option value="Class 9">Class 9</option>
+            </select>
+            <select id="new-student-avatar" class="lang-select" style="width:90px;">
+              <option value="👦">👦 Boy</option>
+              <option value="👧">👧 Girl</option>
+              <option value="👩">👩 Girl 2</option>
+              <option value="🧑">🧑 Student</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <input type="password" id="new-student-pin" maxlength="4" placeholder="4-digit PIN (default 1234)" class="chat-input" style="font-size:0.9rem; flex:1;">
+            <button type="submit" class="btn btn-primary" style="white-space:nowrap;">Create Profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sync Queue Slide-Over Drawer -->
+  <div class="sync-drawer-overlay" id="sync-drawer-overlay" aria-hidden="true">
+    <div class="sync-drawer" id="sync-drawer">
+      <div class="sync-drawer-header">
+        <div>
+          <h3 style="font-size:1.25rem; font-weight:800; color:var(--primary-deep);" data-i18n="syncQueue">Sync Queue</h3>
+          <span style="font-size:0.85rem; color:var(--text-light);" id="drawer-sync-count">3 items waiting to sync</span>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline" id="btn-close-sync">✕</button>
+      </div>
+
+      <div class="sync-items-list" id="sync-items-container">
+        <!-- Rendered via JS -->
+      </div>
+
+      <div class="sync-drawer-footer">
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;" data-i18n="syncSimNotice">
+          When internet connectivity is restored, all offline quiz scores, completed chapters, and student questions automatically sync to the school server.
+        </p>
+        <button type="button" class="btn btn-primary" id="btn-drawer-sync-action" style="width:100%;">
+          🔄 <span data-i18n="syncNow">Sync Now</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <p class="footer-quote">“The internet may be unavailable. Learning shouldn't be.”</p>
+      <p style="font-size:0.85rem; color:var(--text-light);">EduPocket — Making quality learning available everywhere.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/curriculum-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ai-engine.js"></script>
+  <script src="js/demo-guide.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
